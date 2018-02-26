@@ -49,7 +49,7 @@ namespace Sixi
         {
             Inventory inventory = new Inventory();
             inventory.ShowDialog();
-            this.Hide();
+           
         }
     }
 }
