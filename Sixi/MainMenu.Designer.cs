@@ -137,6 +137,7 @@
             this.edit.Textcolor = System.Drawing.Color.White;
             this.edit.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolTip1.SetToolTip(this.edit, "Inventory");
+            this.edit.Click += new System.EventHandler(this.edit_Click);
             // 
             // reports
             // 

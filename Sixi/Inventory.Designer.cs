@@ -115,7 +115,7 @@
             this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(561, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(469, 29);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -129,32 +129,33 @@
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
             this.dataToolStripMenuItem.Size = new System.Drawing.Size(53, 25);
             this.dataToolStripMenuItem.Text = "Data";
+            this.dataToolStripMenuItem.Click += new System.EventHandler(this.dataToolStripMenuItem_Click);
             // 
             // customersToolStripMenuItem
             // 
             this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.customersToolStripMenuItem.Text = "Customers";
             this.customersToolStripMenuItem.Click += new System.EventHandler(this.customersToolStripMenuItem_Click);
             // 
             // suppliersToolStripMenuItem
             // 
             this.suppliersToolStripMenuItem.Name = "suppliersToolStripMenuItem";
-            this.suppliersToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.suppliersToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.suppliersToolStripMenuItem.Text = "Suppliers";
             this.suppliersToolStripMenuItem.Click += new System.EventHandler(this.suppliersToolStripMenuItem_Click);
             // 
             // productsToolStripMenuItem
             // 
             this.productsToolStripMenuItem.Name = "productsToolStripMenuItem";
-            this.productsToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.productsToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.productsToolStripMenuItem.Text = "Products";
             this.productsToolStripMenuItem.Click += new System.EventHandler(this.productsToolStripMenuItem_Click);
             // 
             // categoryToolStripMenuItem
             // 
             this.categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
-            this.categoryToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.categoryToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.categoryToolStripMenuItem.Text = "Category";
             this.categoryToolStripMenuItem.Click += new System.EventHandler(this.categoryToolStripMenuItem_Click);
             // 
@@ -326,7 +327,7 @@
             // data1
             // 
             this.data1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.data1.Location = new System.Drawing.Point(3, 53);
+            this.data1.Location = new System.Drawing.Point(0, 53);
             this.data1.Name = "data1";
             this.data1.Size = new System.Drawing.Size(724, 539);
             this.data1.TabIndex = 1;
@@ -349,9 +350,9 @@
             // category1
             // 
             this.category1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.category1.Location = new System.Drawing.Point(62, 73);
+            this.category1.Location = new System.Drawing.Point(-3, 52);
             this.category1.Name = "category1";
-            this.category1.Size = new System.Drawing.Size(632, 461);
+            this.category1.Size = new System.Drawing.Size(724, 540);
             this.category1.TabIndex = 4;
             // 
             // stock_and_Barcode1
@@ -371,9 +372,9 @@
             // 
             // view_Sales_Invoice1
             // 
-            this.view_Sales_Invoice1.Location = new System.Drawing.Point(0, 53);
+            this.view_Sales_Invoice1.Location = new System.Drawing.Point(3, 53);
             this.view_Sales_Invoice1.Name = "view_Sales_Invoice1";
-            this.view_Sales_Invoice1.Size = new System.Drawing.Size(724, 539);
+            this.view_Sales_Invoice1.Size = new System.Drawing.Size(721, 539);
             this.view_Sales_Invoice1.TabIndex = 7;
             // 
             // Inventory
@@ -382,8 +383,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(724, 612);
-            this.Controls.Add(this.data1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.data1);
             this.Controls.Add(this.suppliers1);
             this.Controls.Add(this.products1);
             this.Controls.Add(this.category1);
@@ -393,7 +394,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Inventory";
-            this.Text = "Inventory";
+            this.Text = " ";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

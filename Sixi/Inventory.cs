@@ -24,44 +24,43 @@ namespace Sixi
 
         private void customersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Data customers = new Data();
-            customers.BringToFront();
+            data1.BringToFront();
+            
         }
 
         private void suppliersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Suppliers suppliers = new Suppliers();
-            suppliers.BringToFront();
+            suppliers1.BringToFront();
         }
 
         private void productsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Products products = new Products();
-            products.BringToFront();
+            products1.BringToFront();
         }
 
         private void categoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Category category = new Category();
-            category.BringToFront();
+            category1.BringToFront();
         }
 
         private void stockAndBarcodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Stock_and_Barcode stock_ = new Stock_and_Barcode();
-            stock_.BringToFront();
+            stock_and_Barcode1.BringToFront();
         }
 
         private void newInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Invoice invoice = new Invoice();
-            invoice.BringToFront();
+            invoice1.BringToFront();
         }
 
         private void viewSalesInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            View_Sales_Invoice view = new View_Sales_Invoice();
-            view.BringToFront();
+            view_Sales_Invoice1.BringToFront();
+        }
+
+        private void dataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -22,12 +22,13 @@ namespace Sixi
         {
             String Username = username.Text;
             String Password = password.Text;
+            String Level = level.Text;
             DBconnect db = new DBconnect();
            // pictureBox1.Visible = true;
-            if (db.hasRegistered($"SELECT * FROM users WHERE Username='{Username}'") ==false)
+            if (db.hasRegistered($"SELECT * FROM users WHERE Username='{Username}' AND Level='{Level}'") ==false)
             {
                 
-                db.Register($"INSERT INTO users (Username,Password) VALUES('{Username}','{Password}')");
+                db.Register($"INSERT INTO users (Username,Password,Level) VALUES('{Username}','{Password}','{Level}')");
                // pictureBox1.Visible = false;
                 DialogResult result = MessageBox.Show("Successfully Registerd", "Secured", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)

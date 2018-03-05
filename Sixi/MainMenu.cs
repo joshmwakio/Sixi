@@ -51,5 +51,10 @@ namespace Sixi
             inventory.ShowDialog();
            
         }
+
+        private void edit_Click(object sender, EventArgs e)
+        {
+            new Form2().ShowDialog();
+        }
     }
 }

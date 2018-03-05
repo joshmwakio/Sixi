@@ -18,7 +18,7 @@ namespace Sixi
             InitializeComponent();
             //load the combobox
             DBconnect DB = new DBconnect();
-            DB.LoadComboBox("SELECT * FROM students ",name);
+            DB.LoadComboBox("SELECT * FROM users ",name);
         }
 
         private void pb_userimg_Click(object sender, EventArgs e)
@@ -64,6 +64,12 @@ namespace Sixi
         private void Form2_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void name_TextChanged(object sender, EventArgs e)
+        {
+            DBconnect DB = new DBconnect();
+            DB.LoadComboBox("SELECT id FROM customers ", comboBox1);
         }
     }
 }

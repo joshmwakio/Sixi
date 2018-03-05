@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using System.Data;
+using System.IO;
+using System.Drawing;
 
 namespace Sixi
 {
@@ -15,138 +17,97 @@ namespace Sixi
         public DBconnect()
         {
             string connectionString = null;
-         
+
             connectionString = "server=localhost;database=school;uid=Josh;pwd=0721466024jm.";
             cnn = new MySqlConnection(connectionString);
-           
+            cnn.Open();
+
         }
-        public void LoadComboBox(String SQL,ComboBox cbo)
+        public void LoadComboBox(String SQL, ComboBox cbo)
         {
             cbo.Items.Clear();
-            //
-            if (this.OpenConnection() == true)
+
+            MySqlCommand cmd = new MySqlCommand(SQL, cnn);
+            MySqlDataReader read = cmd.ExecuteReader();
+            while (read.Read())
             {
-                MySqlCommand cmd = new MySqlCommand(SQL, cnn);
-                MySqlDataReader read = cmd.ExecuteReader();
-                while (read.Read())
-                {
-                    cbo.Items.Add(read.GetString(1));
-                }
-
-                this.CloseConnection();
+                cbo.Items.Add(read.GetString(0));
             }
-
+            read.Close();
+            cnn.Close();
         }
-        private bool OpenConnection()
+        public void LoadTextBox(string Sql, TextBox text)
         {
-            try
+            AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+            MySqlCommand cmd = new MySqlCommand(Sql, cnn);
+            MySqlDataReader read = cmd.ExecuteReader();
+            while (read.Read())
             {
-                cnn.Open();
-             
-                return true;
-               
-            }
-            catch (Exception ex)
-            {
+                collection.Add(read.GetString(0));
 
-                MessageBox.Show(ex.ToString());
-                return false;
             }
+            text.AutoCompleteCustomSource = collection;
+            text.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            text.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            read.Close();
+            cnn.Close();
         }
-        
-        //Close connection
-        private bool CloseConnection()
-        {
-            try
-            {
-                cnn.Close();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
+
+
+        //Close connectioN
 
         //Insert statement
         public void Insert(string query)
         {
+            //create command and assign the query and connection from the constructor
+            MySqlCommand cmd = new MySqlCommand(query, cnn);
 
+            //Execute command
+            cmd.ExecuteNonQuery();
 
-            //open connection
-            if (this.OpenConnection() == true)
-            {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, cnn);
+            cnn.Close();
 
-                //Execute command
-                cmd.ExecuteNonQuery();
-
-                //close connection
-                this.CloseConnection();
-            }
         }
 
         //Update statement
         public void Update(string query)
         {
-            if (this.OpenConnection() == true)
-            {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, cnn);
 
-                //Execute command
-                cmd.ExecuteNonQuery();
+            //create command and assign the query and connection from the constructor
+            MySqlCommand cmd = new MySqlCommand(query, cnn);
 
-                //close connection
-                this.CloseConnection();
-            }
+            //Execute command
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+
         }
 
         //Delete statement
         public void Delete(string query)
         {
-            if (this.OpenConnection() == true)
-            {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, cnn);
 
-                //Execute command
-                cmd.ExecuteNonQuery();
+            //create command and assign the query and connection from the constructor
+            MySqlCommand cmd = new MySqlCommand(query, cnn);
 
-                //close connection
-                this.CloseConnection();
-            }
+            //Execute command
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+
         }
 
         //Select statement
-        public void Select(string query,DataGridView dgv)
+        public void Select(string query, DataGridView dgv)
         {
-          
-            //Open connection
-            if (this.OpenConnection() == true)
-            {
-                //Create Command
-                //Create a data reader and Execute the command
-                DataTable tbl = new DataTable();
-                MySqlDataAdapter adp = new MySqlDataAdapter(query,cnn);
-                adp.Fill(tbl);
-                dgv.DataSource = tbl;
-                
-                //close Data Reader
-                
 
-                //close Connection
-                this.CloseConnection();
 
-                //return list to be displayed
-             
-            }
-            else
-            {
-                return;
-            }
+            //Create Command
+            //Create a data reader and Execute the command
+            DataTable tbl = new DataTable();
+            MySqlDataAdapter adp = new MySqlDataAdapter(query, cnn);
+            adp.Fill(tbl);
+            dgv.DataSource = tbl;
+            cnn.Close();
+
         }
 
         //Count statement
@@ -165,72 +126,76 @@ namespace Sixi
         }
         public bool Register(string query)
         {
-            if (this.OpenConnection() == true)
-            {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, cnn);
-              
-                    //Execute command
-                    cmd.ExecuteNonQuery();
+            MySqlCommand cmd = new MySqlCommand(query, cnn);
 
-                    //close connection
-                    this.CloseConnection();
-                
-            }
+            //Execute command
+            cmd.ExecuteNonQuery();
+            cnn.Close();
             return true;
         }
         public bool hasRegistered(string query)
         {
-            if (this.OpenConnection() == true)
+            MySqlCommand cmd = new MySqlCommand(query, cnn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
             {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, cnn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    reader.Close();
-                    cnn.Close();
-                    return true;
-
-                }
-                else { reader.Close(); cnn.Close(); return false; }                   
+                reader.Close();
+                cnn.Close();
+                return true;
 
             }
-           
-                return true;
-        }
+            else { reader.Close(); cnn.Close(); return false; }
 
-        public enum UserStatus
-        {
-            IsRegistered,
-            IsNotRegistered,
-            UserCheckFailed
+
         }
-        public bool IsLogin(string query)
+        public void LoadImage(string query, PictureBox picture)
         {
-            if (this.OpenConnection() == true)
+            MySqlCommand cmd = new MySqlCommand(query, cnn);
+            MySqlDataReader read = cmd.ExecuteReader();
+            while (read.Read())
             {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, cnn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    reader.Close();
-                    cnn.Close();
-                   
-                    return true;
+                string path = Application.StartupPath + @"\Images\" + read.GetString(0);
 
+                if (File.Exists(path))
+                {
+                    picture.Tag = path;
+                    picture.Image = Image.FromFile(path);
                 }
                 else
                 {
-                    reader.Close();
-                    cnn.Close();
-                          return false;
+                    picture.Tag = read.GetString(0);
+                    picture.Image = null;
                 }
-                
+
             }
-            return true;
+
+            read.Close();
+            cnn.Close();
         }
-        
+
+
+        public bool IsLogin(string query)
+        {
+
+            //create command and assign the query and connection from the constructor
+            MySqlCommand cmd = new MySqlCommand(query, cnn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                reader.Close();
+                cnn.Close();
+
+                return true;
+
+            }
+            else
+            {
+                reader.Close();
+                cnn.Close();
+                return false;
+
+            }
+
+        }
     }
 }
